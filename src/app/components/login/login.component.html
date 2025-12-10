@@ -1,0 +1,159 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="icon-wrapper">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+          <polyline points="10 17 15 12 10 7"></polyline>
+          <line x1="15" y1="12" x2="3" y2="12"></line>
+        </svg>
+      </div>
+      <h1>Iniciar Sesión</h1>
+      <p>Ingresa tus credenciales para acceder</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="username">Usuario</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          placeholder="Ingresa tu usuario"
+          [class.error]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+        />
+        <span
+          class="error-message"
+          *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+        >
+          El usuario es requerido
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Ingresa tu contraseña"
+          [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        />
+        <span
+          class="error-message"
+          *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
+          La contraseña es requerida
+        </span>
+      </div>
+
+      <div class="error-alert" *ngIf="errorMessage">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="loading || loginForm.invalid">
+        <span *ngIf="!loading">Iniciar Sesión</span>
+        <span *ngIf="loading" class="loading-spinner">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="12" y1="2" x2="12" y2="6"></line>
+            <line x1="12" y1="18" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+            <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="6" y2="12"></line>
+            <line x1="18" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+            <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+          </svg>
+          Iniciando sesión...
+        </span>
+      </button>
+    </form>
+
+    <div class="quick-access">
+      <p>Acceso rápido para pruebas:</p>
+      <div class="quick-buttons">
+        <button type="button" class="btn-quick admin" (click)="fillAdmin()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <polyline points="17 11 19 13 23 9"></polyline>
+          </svg>
+          Admin
+        </button>
+        <button type="button" class="btn-quick user" (click)="fillUser()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Usuario
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-panel">
+    <h3>🔐 Demo de Autenticación JWT</h3>
+    <p>Esta aplicación demuestra el uso de Bearer Tokens para autenticación HTTP.</p>
+
+    <div class="credentials-info">
+      <h4>Credenciales de prueba:</h4>
+      <div class="credential-item">
+        <strong>Admin:</strong>
+        <code>admin / admin123</code>
+      </div>
+      <div class="credential-item">
+        <strong>Usuario:</strong>
+        <code>user / user123</code>
+      </div>
+    </div>
+
+    <div class="features">
+      <h4>Características:</h4>
+      <ul>
+        <li>✅ Autenticación con JWT</li>
+        <li>✅ Bearer Token en headers HTTP</li>
+        <li>✅ Refresh Token automático</li>
+        <li>✅ Guards de rutas protegidas</li>
+        <li>✅ Interceptor HTTP</li>
+        <li>✅ Control de roles (admin/user)</li>
+      </ul>
+    </div>
+  </div>
+</div>
